@@ -3,7 +3,7 @@
 //
 // wram.v — Working Word Register (16 × 32-bit shift register)
 // 512 flip-flop; tap tetap [0],[1],[9],[14] untuk message expansion.
-
+`timescale 1ns/1ps
 `default_nettype none
 
 module wram (

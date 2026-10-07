@@ -1,9 +1,19 @@
 // SPDX-FileCopyrightText: Copyright (c) 2026 Peruri
 // SPDX-License-Identifier: Apache-2.0
 //
-// tb_unit_sha256_fsm.sv — Unit test for sha256_fsm.v
-// Verifikasi: IDLE → LOAD → PROC (64 round) → FIN → IDLE
+// tb_unit_sha256_fsm.sv - Unit test for sha256_fsm.v
+// Verifikasi: IDLE -> LOAD -> PROC (64 round) -> FIN -> IDLE
 // Mode: CLS_RAW (first=1, last=1, auto=0)
+//
+// CATATAN TIMING: semua output kontrol sha256_fsm adalah REGISTER yang diisi
+// saat state tertentu, sehingga muncul satu siklus SETELAH state tersebut:
+//   - load     : tinggi di siklus pertama PROC (di-set pada state LOAD)
+//   - round_en : 64 siklus, pulsa terakhir tinggi di siklus FIN
+//   - sched_en : 48 siklus, pulsa terakhir tinggi di siklus FIN
+//   - hram_we, done_pulse, blk_inc, msg_done_pulse : tinggi di siklus setelah
+//     FIN (saat state sudah kembali IDLE)
+// Urutan ini konsisten dengan datapath: round terakhir dieksekusi di akhir
+// siklus FIN, lalu HRAM menulis di siklus berikutnya.
 
 `timescale 1ns/1ps
 
@@ -64,23 +74,22 @@ module tb_unit_sha256_fsm;
     .state           (state)
   );
 
-  // State name
-  function [63:0] st_name;
-    input [2:0] s;
-    case(s)
-      3'd0: st_name = "IDLE";
-      3'd1: st_name = "PAD ";
-      3'd2: st_name = "LOAD";
-      3'd3: st_name = "PROC";
-      3'd4: st_name = "FIN ";
-      3'd5: st_name = "LPRP";
-      3'd6: st_name = "LRND";
-      default: st_name = "????";
-    endcase
-  endfunction
+  integer fail;
+  integer timeout, proc_cnt, round_en_cnt, sched_cnt;
 
-  integer fail, cyc_load, cyc_proc, cyc_fin;
-  integer timeout, round_cnt, sched_cnt;
+  // Cek nilai integer/bit; label berupa string
+  task check_eq;
+    input integer got;
+    input integer exp;
+    input string  label;
+    begin
+      if (got !== exp) begin
+        $display("FAIL %0s: got=%0d exp=%0d", label, got, exp);
+        fail = fail + 1;
+      end else
+        $display("PASS %0s: %0d", label, got);
+    end
+  endtask
 
   initial begin
     $display("==============================================");
@@ -96,86 +105,66 @@ module tb_unit_sha256_fsm;
     rst_n = 1;
     @(posedge clk); #1;
 
-    // ---- T1: Setelah reset → IDLE ----
-    if (state !== 3'd0) begin
-      $display("FAIL T1: state=%0d exp=IDLE", state);
-      fail = fail + 1;
-    end else $display("PASS T1: Setelah reset = IDLE");
+    // ---- T1: Setelah reset -> IDLE ----
+    check_eq(state,    0, "T1  state=IDLE setelah reset");
+    check_eq(fsm_busy, 0, "T1b fsm_busy=0 di IDLE");
 
-    if (fsm_busy !== 1'b0) begin
-      $display("FAIL T1b: fsm_busy=%0d exp=0", fsm_busy);
-      fail = fail + 1;
-    end else $display("PASS T1b: fsm_busy=0 di IDLE");
-
-    // ---- T2: Kirim start_req → LOAD ----
-    $display("--- T2: start_req → LOAD ---");
+    // ---- T2: start_req -> LOAD -> (load=1 tampil di siklus pertama PROC) ----
+    $display("--- T2: start_req -> LOAD ---");
     @(negedge clk);
     start_req = 1'b1;
-    @(posedge clk); #1;
+    @(posedge clk); #1;          // IDLE -> LOAD
     start_req = 1'b0;
-    @(posedge clk); #1;
+    @(posedge clk); #1;          // LOAD -> PROC, load (register) = 1
+    check_eq(load,  1, "T2  load=1 (siklus pertama PROC)");
+    check_eq(state, 3, "T2b state=PROC setelah LOAD");
 
-    if (load !== 1'b1) begin
-      $display("FAIL T2: load=%0d exp=1 saat LOAD", load);
-      fail = fail + 1;
-    end else $display("PASS T2: load=1 saat LOAD");
-    cyc_load = 1;
-
-    // ---- T3: PROC — tunggu 64 round ----
-    $display("--- T3: Tunggu 64 round PROC ---");
-    round_cnt = 0; sched_cnt = 0;
+    // ---- T3: PROC - hitung siklus PROC, round_en, sched_en ----
+    // Sampling mulai TEPAT di siklus PROC pertama (jangan tambah @(posedge) lagi).
+    $display("--- T3: Hitung 64 siklus PROC ---");
+    proc_cnt = 0; round_en_cnt = 0; sched_cnt = 0;
     timeout = 200;
-    @(posedge clk); #1;
 
     while (state === 3'd3 && timeout > 0) begin
-      round_cnt = round_cnt + 1;
-      if (sched_en) sched_cnt = sched_cnt + 1;
+      proc_cnt = proc_cnt + 1;
+      if (round_en) round_en_cnt = round_en_cnt + 1;
+      if (sched_en) sched_cnt    = sched_cnt + 1;
       @(posedge clk); #1;
       timeout = timeout - 1;
     end
 
-    $display("  Round count = %0d (exp 64)", round_cnt);
-    if (round_cnt !== 64) begin
-      $display("FAIL T3a: round_cnt=%0d exp=64", round_cnt);
-      fail = fail + 1;
-    end else $display("PASS T3a: Tepat 64 round");
+    // Sekarang di siklus FIN: pulsa round_en dan sched_en terakhir masih tinggi
+    check_eq(state, 4, "T4  state=FIN setelah PROC");
+    if (round_en) round_en_cnt = round_en_cnt + 1;
+    if (sched_en) sched_cnt    = sched_cnt + 1;
+    check_eq(hram_we,    0, "T4a hram_we=0 di siklus FIN (register, naik 1 siklus kemudian)");
+    check_eq(done_pulse, 0, "T4a done_pulse=0 di siklus FIN");
 
-    if (sched_cnt !== 48) begin
-      $display("FAIL T3b: sched_en aktif %0d siklus exp=48", sched_cnt);
-      fail = fail + 1;
-    end else $display("PASS T3b: sched_en aktif tepat 48 siklus");
+    check_eq(proc_cnt,     64, "T3a siklus state=PROC");
+    check_eq(round_en_cnt, 64, "T3b jumlah siklus round_en");
+    check_eq(sched_cnt,    48, "T3c jumlah siklus sched_en (W16..W63)");
 
-    // ---- T4: FIN → done_pulse + hram_we ----
-    $display("--- T4: FIN state ---");
-    if (state !== 3'd4) begin
-      $display("FAIL T4: state=%0d exp=FIN(4)", state);
-      fail = fail + 1;
-    end else $display("PASS T4: state = FIN");
-
-    if (hram_we !== 1'b1) begin
-      $display("FAIL T4b: hram_we=%0d exp=1 di FIN", hram_we);
-      fail = fail + 1;
-    end else $display("PASS T4b: hram_we=1 di FIN");
-
-    // tunggu done_pulse
+    // ---- T4: Siklus setelah FIN: state=IDLE, pulsa selesai aktif ----
+    $display("--- T4: Siklus setelah FIN ---");
     @(posedge clk); #1;
-    if (state !== 3'd0) begin
-      $display("FAIL T4c: setelah FIN bukan IDLE (state=%0d)", state);
-      fail = fail + 1;
-    end else $display("PASS T4c: kembali ke IDLE setelah FIN");
+    check_eq(state,          0, "T4b state kembali IDLE");
+    check_eq(hram_we,        1, "T4c hram_we=1 (tulis HRAM)");
+    check_eq(done_pulse,     1, "T4d done_pulse=1");
+    check_eq(blk_inc,        1, "T4e blk_inc=1");
+    check_eq(msg_done_pulse, 1, "T4f msg_done_pulse=1 (last_in=1, auto=0)");
+    check_eq(round_en,       0, "T4g round_en=0");
+    check_eq(sched_en,       0, "T4h sched_en=0");
 
-    // ---- T5: blk_inc dan done_pulse harus sempat aktif ----
-    $display("--- T5: done_pulse ---");
-    // done_pulse diperika di siklus FIN (sudah lewat satu clock)
-    // Cukup verifikasi FSM kembali IDLE dan fsm_busy=0
-    if (fsm_busy !== 1'b0) begin
-      $display("FAIL T5: fsm_busy=%0d exp=0 di IDLE", fsm_busy);
-      fail = fail + 1;
-    end else $display("PASS T5: fsm_busy=0 kembali di IDLE");
+    // ---- T5: Pulsa 1 siklus, FSM idle ----
+    $display("--- T5: Pulsa hanya 1 siklus ---");
+    @(posedge clk); #1;
+    check_eq(hram_we,    0, "T5  hram_we=0 (pulsa 1 siklus)");
+    check_eq(done_pulse, 0, "T5a done_pulse=0 (pulsa 1 siklus)");
+    check_eq(fsm_busy,   0, "T5b fsm_busy=0 di IDLE");
 
     $display("");
     if (fail == 0)
-      $display("tb_unit_sha256_fsm PASS — IDLE→LOAD→PROC(64)→FIN→IDLE OK");
+      $display("tb_unit_sha256_fsm PASS - IDLE->LOAD->PROC(64)->FIN->IDLE OK");
     else
       $display("tb_unit_sha256_fsm FAIL (%0d mismatch)", fail);
     $finish;

@@ -1,0 +1,59 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Wed Oct  7 15:19:12 2026
+# Process ID         : 16532
+# Current directory  : C:/PERURI/quartus_sha256_soc/xsim_work
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/tb_unit_sha256_fsm_snap/xsim_script.tcl}
+# Log file           : C:/PERURI/quartus_sha256_soc/xsim_work/xsim.log
+# Journal file       : C:/PERURI/quartus_sha256_soc/xsim_work\xsim.jou
+# Running On         : F16
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 13th Gen Intel(R) Core(TM) i7-13650HX
+# CPU Frequency      : 2803 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 20
+# Host memory        : 16777 MB
+# Swap memory        : 8970 MB
+# Total Virtual      : 25748 MB
+# Available Virtual  : 2714 MB
+#-----------------------------------------------------------
+source xsim.dir/tb_unit_sha256_fsm_snap/xsim_script.tcl
+# xsim {tb_unit_sha256_fsm_snap} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+==============================================
+tb_unit_sha256_fsm: Test Mode CLS_RAW (1 blok)
+==============================================
+PASS T1  state=IDLE setelah reset: 0
+PASS T1b fsm_busy=0 di IDLE: 0
+--- T2: start_req -> LOAD ---
+PASS T2  load=1 (siklus pertama PROC): 1
+PASS T2b state=PROC setelah LOAD: 3
+--- T3: Hitung 64 siklus PROC ---
+PASS T4  state=FIN setelah PROC: 4
+PASS T4a hram_we=0 di siklus FIN (register, naik 1 siklus kemudian): 0
+PASS T4a done_pulse=0 di siklus FIN: 0
+PASS T3a siklus state=PROC: 64
+PASS T3b jumlah siklus round_en: 64
+PASS T3c jumlah siklus sched_en (W16..W63): 48
+--- T4: Siklus setelah FIN ---
+PASS T4b state kembali IDLE: 0
+PASS T4c hram_we=1 (tulis HRAM): 1
+PASS T4d done_pulse=1: 1
+PASS T4e blk_inc=1: 1
+PASS T4f msg_done_pulse=1 (last_in=1, auto=0): 1
+PASS T4g round_en=0: 0
+PASS T4h sched_en=0: 0
+--- T5: Pulsa hanya 1 siklus ---
+PASS T5  hram_we=0 (pulsa 1 siklus): 0
+PASS T5a done_pulse=0 (pulsa 1 siklus): 0
+PASS T5b fsm_busy=0 di IDLE: 0
+
+tb_unit_sha256_fsm PASS - IDLE->LOAD->PROC(64)->FIN->IDLE OK
+$finish called at time : 716 ns : File "C:/PERURI/quartus_sha256_soc/tb/tb_unit_sha256_fsm.sv" Line 170
+exit
+INFO: [Common 17-206] Exiting xsim at Wed Oct  7 15:19:14 2026...

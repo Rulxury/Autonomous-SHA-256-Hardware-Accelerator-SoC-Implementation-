@@ -1,0 +1,1 @@
+-debug "typical" "tb_unit_k_rom" -s "tb_unit_k_rom_snap" 

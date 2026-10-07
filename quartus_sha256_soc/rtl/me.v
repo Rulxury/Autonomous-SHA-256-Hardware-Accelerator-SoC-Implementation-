@@ -3,7 +3,7 @@
 //
 // me.v — SHA-256 Message Expansion (kombinasional)
 // w_n = w0 + σ0(w1) + w9 + σ1(w14)  bila sched_en; else w_n = w0
-
+`timescale 1ns/1ps
 `default_nettype none
 
 `include "sha256_defs.vh"

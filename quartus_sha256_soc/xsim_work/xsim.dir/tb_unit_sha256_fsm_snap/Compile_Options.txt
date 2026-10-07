@@ -1,0 +1,1 @@
+-debug "typical" "tb_unit_sha256_fsm" -s "tb_unit_sha256_fsm_snap" 

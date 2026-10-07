@@ -3,7 +3,7 @@
 //
 // pad_fn.v — SHA-256 Hardware Auto-Padding Unit (kombinasional, 1 word per siklus)
 // Menghasilkan satu word padding pada tiap siklus state PAD (16 siklus rotasi).
-
+`timescale 1ns/1ps
 `default_nettype none
 
 module pad_fn (

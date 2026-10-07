@@ -1,0 +1,48 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Wed Oct  7 15:19:04 2026
+# Process ID         : 21256
+# Current directory  : C:/PERURI/quartus_sha256_soc/xsim_work
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/tb_unit_pad_fn_snap/xsim_script.tcl}
+# Log file           : C:/PERURI/quartus_sha256_soc/xsim_work/xsim.log
+# Journal file       : C:/PERURI/quartus_sha256_soc/xsim_work\xsim.jou
+# Running On         : F16
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 13th Gen Intel(R) Core(TM) i7-13650HX
+# CPU Frequency      : 2803 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 20
+# Host memory        : 16777 MB
+# Swap memory        : 8970 MB
+# Total Virtual      : 25748 MB
+# Available Virtual  : 2714 MB
+#-----------------------------------------------------------
+source xsim.dir/tb_unit_pad_fn_snap/xsim_script.tcl
+# xsim {tb_unit_pad_fn_snap} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+==============================================
+tb_unit_pad_fn: Test padding byte, mask, length
+==============================================
+PASS T1: dout=00000000
+PASS T2: dout=deadbeef
+PASS T3: dout=00000000
+PASS T4: dout=ab000000
+PASS T5: dout=abcd0000
+PASS T6: dout=abcdef00
+PASS T7: dout=80000000
+PASS T8: dout=ab800000
+PASS T9: dout=80000000
+PASS T10: dout=00000000
+PASS T11: dout=00000018
+PASS T12: dout=abcdef80
+PASS T13: dout=deadc0de
+
+tb_unit_pad_fn PASS
+$finish called at time : 13 ns : File "C:/PERURI/quartus_sha256_soc/tb/tb_unit_pad_fn.sv" Line 118
+exit
+INFO: [Common 17-206] Exiting xsim at Wed Oct  7 15:19:06 2026...

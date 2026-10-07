@@ -3,7 +3,7 @@
 //
 // k_rom.v — SHA-256 round constant ROM (64 × 32-bit)
 // Registered output (latensi 1 siklus); diimplementasikan di M10K.
-
+`timescale 1ns/1ps
 `default_nettype none
 
 module k_rom (

@@ -4,7 +4,7 @@
 // hram.v — Hash result register (8 × 32-bit flip-flop)
 // Diperbarui atomik 256-bit pada siklus FINALIZE.
 // reset_n me-reset ke 0 agar digest awal deterministik (pengecualian aturan §4).
-
+`timescale 1ns/1ps
 `default_nettype none
 
 module hram (

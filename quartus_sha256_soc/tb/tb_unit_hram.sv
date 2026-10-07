@@ -1,16 +1,18 @@
 // SPDX-FileCopyrightText: Copyright (c) 2026 Peruri
 // SPDX-License-Identifier: Apache-2.0
 //
-// tb_unit_hram.sv — Unit test for hram.v
-// Verifikasi: reset ke IV, we update semua 8 word, we=0 tidak update
+// tb_unit_hram.sv - Unit test for hram.v
+// Verifikasi: reset ke 0, we=1 update semua 256 bit, we=0 menahan nilai.
+// Catatan: IV SHA-256 TIDAK disimpan di hram; IV dipilih oleh hash_adder
+//          lewat h_base = first_eff ? IV : HRAM.
 
 `timescale 1ns/1ps
 
 module tb_unit_hram;
 
-  reg        clk, rst_n;
-  reg        we;
-  reg [255:0] h_in;
+  reg          clk, rst_n;
+  reg          we;
+  reg  [255:0] h_in;
   wire [255:0] h_out;
 
   initial clk = 0;
@@ -20,14 +22,13 @@ module tb_unit_hram;
     .clk   (clk),
     .rst_n (rst_n),
     .we    (we),
-    .h_in  (h_in),
-    .h_out (h_out)
+    .d     (h_in),
+    .q     (h_out)
   );
 
   integer fail;
 
-  // SHA-256 IV
-  localparam [255:0] SHA256_IV = 256'h6a09e667_bb67ae85_3c6ef372_a54ff53a_510e527f_9b05688c_1f83d9ab_5be0cd19;
+  localparam [255:0] ZERO = 256'h0;
 
   task check;
     input [255:0] exp;
@@ -45,22 +46,22 @@ module tb_unit_hram;
     $display("==============================================");
     $display("tb_unit_hram: Test reset, write-enable, hold");
     $display("==============================================");
-    fail = 0;
+    fail  = 0;
     we    = 1'b0;
     h_in  = 256'h0;
     rst_n = 1'b0;
     repeat(2) @(posedge clk); #1;
 
-    // ---- T1: Setelah reset → IV ----
+    // ---- T1: Setelah reset -> 0 ----
     rst_n = 1'b1;
     @(posedge clk); #1;
-    check(SHA256_IV, 8'd1);
+    check(ZERO, 8'd1);
 
     // ---- T2: we=0, nilai tidak berubah walau h_in diubah ----
     we   = 1'b0;
     h_in = 256'hDEADBEEF_CAFEBABE_12345678_87654321_ABCDEF01_FEDCBA98_DEADC0DE_BEEFDEAD;
     @(posedge clk); #1;
-    check(SHA256_IV, 8'd2); // harus tetap IV
+    check(ZERO, 8'd2); // harus tetap 0
 
     // ---- T3: we=1, nilai diupdate ----
     we   = 1'b1;
@@ -70,12 +71,12 @@ module tb_unit_hram;
     @(posedge clk); #1;
     check(256'hDEADBEEF_CAFEBABE_12345678_87654321_ABCDEF01_FEDCBA98_DEADC0DE_BEEFDEAD, 8'd3);
 
-    // ---- T4: Reset kembali ke IV ----
+    // ---- T4: Reset (async) kembali ke 0 ----
     rst_n = 1'b0;
     @(posedge clk); #1;
     rst_n = 1'b1;
     @(posedge clk); #1;
-    check(SHA256_IV, 8'd4);
+    check(ZERO, 8'd4);
 
     // ---- T5: Tulis lalu baca, we=0 hold ----
     we   = 1'b1;

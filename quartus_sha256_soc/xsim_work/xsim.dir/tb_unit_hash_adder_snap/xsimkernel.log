@@ -1,0 +1,7 @@
+Running: xsim.dir/tb_unit_hash_adder_snap/xsimk.exe -runall -simmode gui -wdb tb_unit_hash_adder_snap.wdb -simrunnum 0 -socket 57798
+Design successfully loaded
+Design Loading Memory Usage: 10020 KB (Peak: 10020 KB)
+Design Loading CPU Usage: 77 ms
+Simulation completed
+Simulation Memory Usage: 11108 KB (Peak: 11108 KB)
+Simulation CPU Usage: 93 ms

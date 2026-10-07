@@ -7,7 +7,7 @@
 
 `timescale 1ns/1ps
 
-`include "rtl/sha256_defs.vh"
+`include "sha256_defs.vh"
 
 module tb_unit_mc;
 

@@ -1,0 +1,1 @@
+-debug "typical" "tb_unit_wram" -s "tb_unit_wram_snap" 

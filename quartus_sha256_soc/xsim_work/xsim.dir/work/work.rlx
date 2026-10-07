@@ -1,0 +1,21 @@
+0.7
+2020.2
+Nov 14 2025
+19:37:27
+C:/PERURI/quartus_sha256_soc/rtl/hash_adder.v,1791359539,systemVerilog,,C:/PERURI/quartus_sha256_soc/rtl/hram.v,,hash_adder,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/rtl/hram.v,1791359527,systemVerilog,,C:/PERURI/quartus_sha256_soc/rtl/k_rom.v,,hram,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/rtl/k_rom.v,1791359165,systemVerilog,,C:/PERURI/quartus_sha256_soc/rtl/mc.v,,k_rom,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/rtl/mc.v,1791297379,systemVerilog,,C:/PERURI/quartus_sha256_soc/rtl/me.v,,mc,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/rtl/me.v,1791359193,systemVerilog,,C:/PERURI/quartus_sha256_soc/rtl/pad_fn.v,C:/PERURI/quartus_sha256_soc/rtl/sha256_defs.vh,me,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/rtl/pad_fn.v,1791359204,systemVerilog,,C:/PERURI/quartus_sha256_soc/rtl/sha256_fsm.v,,pad_fn,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/rtl/sha256_defs.vh,1791297262,verilog,,,,,,,,,,,,
+C:/PERURI/quartus_sha256_soc/rtl/sha256_fsm.v,1791359220,systemVerilog,,C:/PERURI/quartus_sha256_soc/rtl/wram.v,C:/PERURI/quartus_sha256_soc/rtl/sha256_defs.vh,sha256_fsm,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/rtl/wram.v,1791359184,systemVerilog,,,,wram,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/tb/tb_unit_hash_adder.sv,1791359373,systemVerilog,,,,tb_unit_hash_adder,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/tb/tb_unit_hram.sv,1791360730,systemVerilog,,,,tb_unit_hram,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/tb/tb_unit_k_rom.sv,1791344177,systemVerilog,,,,tb_unit_k_rom,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/tb/tb_unit_mc.sv,1791359968,systemVerilog,,,C:/PERURI/quartus_sha256_soc/rtl/sha256_defs.vh,tb_unit_mc,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/tb/tb_unit_me.sv,1791344236,systemVerilog,,,,tb_unit_me,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/tb/tb_unit_pad_fn.sv,1791344321,systemVerilog,,,,tb_unit_pad_fn,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/tb/tb_unit_sha256_fsm.sv,1791361120,systemVerilog,,,,tb_unit_sha256_fsm,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,
+C:/PERURI/quartus_sha256_soc/tb/tb_unit_wram.sv,1791344204,systemVerilog,,,,tb_unit_wram,,,C:\PERURI\quartus_sha256_soc\rtl,,,,,

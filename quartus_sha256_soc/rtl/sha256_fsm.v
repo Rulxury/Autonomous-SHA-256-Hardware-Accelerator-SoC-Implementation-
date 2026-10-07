@@ -9,7 +9,7 @@
 //
 // Latensi per blok: 1(keputusan) + 1(LOAD) + 64(PROC) + 1(FIN) = 67 siklus
 // PAD menambah 16 siklus.
-
+`timescale 1ns/1ps
 `default_nettype none
 
 `include "sha256_defs.vh"

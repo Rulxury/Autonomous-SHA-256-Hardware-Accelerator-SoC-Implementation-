@@ -12,11 +12,17 @@ module tb_unit_hash_adder;
   reg [255:0] h_prev;    // nilai H awal blok
   wire [255:0] h_out;    // H baru = state_mc + h_prev
 
-  hash_adder dut (
-    .state_mc (state_mc),
-    .h_prev   (h_prev),
-    .h_out    (h_out)
-  );
+  //hash_adder dut (
+  //  .state_mc (state_mc),
+  //  .h_prev   (h_prev),
+  //  .h_out    (h_out)
+  //);
+
+hash_adder dut (
+    .h_base      (h_prev),   // sinyal TB boleh tetap bernama h_prev
+    .state_final (state_mc),
+    .h_new       (h_out)
+);
 
   integer i, fail;
   reg [31:0] mc_w [0:7];

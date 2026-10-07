@@ -3,7 +3,7 @@
 //
 // hash_adder.v — SHA-256 Hash Accumulator (kombinasional)
 // h_new[i] = h_base[i] + state_final[i]  (8 × 32-bit lane, modulo 2^32)
-
+`timescale 1ns/1ps
 `default_nettype none
 
 module hash_adder (
