@@ -3,6 +3,8 @@
 This repository contains the RTL implementation, synthesis infrastructure, and simulation environment for an autonomous, low-area **SHA-256 Hardware Accelerator** targeting the **Intel Cyclone V SoC FPGA (DE10-Nano, `5CSEBA6U23I7`)**.
 
 The design features an Avalon-MM Slave interface with HPS interrupt support, hardware auto-padding, multi-block message chaining, and an integrated iterative round computation engine.
+![Designed Block Diagram](docs/Diagram%20blok.jpeg)
+*Figure 1: Designed Block Diagram*
 
 ---
 
@@ -22,8 +24,7 @@ The accelerator consists of a hierarchical modular design:
     * **`hash_adder.v`**: Modulo $2^{32}$ parallel adder computing $H_{i} = H_{i-1} + \text{Digest}$.
     * **`pad_fn.v`**: Combinational hardware auto-padding logic according to NIST FIPS 180-4.
 
-![Quartus RTL Design](docs/Quartus%20RTL%20Design.jpeg)
-*Figure 1: Synthesized top-level RTL schematic showing core and bus controller interconnection.*
+
 
 ---
 
@@ -78,6 +79,9 @@ The automated build script [`quartus_sha256_soc/quartus/build.tcl`](quartus_sha2
 
 4. **Visualizing the Hardware Schematic (Optional):**
    * Double-click **Tools** $\rightarrow$ **Netlist Viewers** $\rightarrow$ **RTL Viewer** to view the synthesized gate- and block-level hardware schematic.
+
+![Quartus RTL Design](docs/Quartus%20RTL%20Design.jpeg)
+*Figure 1: Synthesized top-level RTL schematic showing core and bus controller interconnection.*
 
 ---
 
