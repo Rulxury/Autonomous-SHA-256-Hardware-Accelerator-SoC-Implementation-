@@ -1,0 +1,113 @@
+# vsim tb_core_raw 
+# Start time: 07:02:00 on Oct 07,2026
+# Loading sv_std.std
+# Loading work.tb_core_raw
+# Loading work.sha256_core
+# Loading work.sha256_fsm
+# Loading work.k_rom
+# Loading work.wram
+# Loading work.me
+# Loading work.pad_fn
+# Loading work.mc
+# Loading work.hash_adder
+# Loading work.hram
+add wave -r /*
+run -all
+# tb_core_raw — Fase 1 Mode 0 test
+# --- Test 1: 'abc' (NIST) ---
+#   Cycles: 66 (expected 66, counted from done_pulse)
+# PASS: digest correct
+# --- Test 2: empty string ---
+# PASS: digest correct
+# --- Test 3: back-to-back 'abc' twice ---
+#   First 'abc': cycles=66
+# PASS: digest correct
+#   Second 'abc': cycles=66
+# PASS: digest correct
+# tb_core_raw PASS (all tests)
+# ** Note: $finish    : c:/PERURI/quartus_sha256_soc/tb/tb_core_raw.sv(246)
+#    Time: 3495 ns  Iteration: 1  Instance: /tb_core_raw
+# 1
+# Break in Module tb_core_raw at c:/PERURI/quartus_sha256_soc/tb/tb_core_raw.sv line 246
+
+vlib work
+# ** Warning: (vlib-34) Library already exists at "work".
+vlog +incdir+rtl rtl/hash_adder.v rtl/hram.v rtl/k_rom.v rtl/mc.v rtl/me.v rtl/pad_fn.v rtl/sha256_accelerator.v rtl/sha256_core.v rtl/sha256_csr.v rtl/sha256_fsm.v rtl/wram.v
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+# Start time: 07:03:29 on Oct 07,2026
+# vlog -reportprogress 300 "+incdir+rtl" rtl/hash_adder.v rtl/hram.v rtl/k_rom.v rtl/mc.v rtl/me.v rtl/pad_fn.v rtl/sha256_accelerator.v rtl/sha256_core.v rtl/sha256_csr.v rtl/sha256_fsm.v rtl/wram.v 
+# -- Compiling module hash_adder
+# -- Compiling module hram
+# -- Compiling module k_rom
+# -- Compiling module mc
+# -- Compiling module me
+# -- Compiling module pad_fn
+# -- Compiling module sha256_accelerator
+# -- Compiling module sha256_core
+# -- Compiling module sha256_csr
+# -- Compiling module sha256_fsm
+# -- Compiling module wram
+# 
+# Top level modules:
+# 	sha256_accelerator
+# End time: 07:03:29 on Oct 07,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv +incdir+rtl tb/tb_core_raw.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+# Start time: 07:03:29 on Oct 07,2026
+# vlog -reportprogress 300 -sv "+incdir+rtl" tb/tb_core_raw.sv 
+# -- Compiling module tb_core_raw
+# 
+# Top level modules:
+# 	tb_core_raw
+# End time: 07:03:29 on Oct 07,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -c -do "run -all; quit" tb_core_raw
+# End time: 07:03:30 on Oct 07,2026, Elapsed time: 0:01:30
+# Errors: 0, Warnings: 0
+# vsim -c -do "run -all; quit" tb_core_raw 
+# Start time: 07:03:30 on Oct 07,2026
+# Loading sv_std.std
+# Loading work.tb_core_raw
+# Loading work.sha256_core
+# Loading work.sha256_fsm
+# Loading work.k_rom
+# Loading work.wram
+# Loading work.me
+# Loading work.pad_fn
+# Loading work.mc
+# Loading work.hash_adder
+# Loading work.hram
+# run -all
+# tb_core_raw — Fase 1 Mode 0 test
+# --- Test 1: 'abc' (NIST) ---
+#   Cycles: 66 (expected 66, counted from done_pulse)
+# PASS: digest correct
+# --- Test 2: empty string ---
+# PASS: digest correct
+# --- Test 3: back-to-back 'abc' twice ---
+#   First 'abc': cycles=66
+# PASS: digest correct
+#   Second 'abc': cycles=66
+# PASS: digest correct
+# tb_core_raw PASS (all tests)
+# ** Note: $finish    : tb/tb_core_raw.sv(246)
+#    Time: 3495 ns  Iteration: 1  Instance: /tb_core_raw
+# 1
+# Break in Module tb_core_raw at tb/tb_core_raw.sv line 246
+#  quit
+
+vsim -c -do "do run_sim.do"
+# No design specified
+
+run
+run -all
+# TIMEOUT
+# ** Note: $finish    : tb/tb_core_raw.sv(252)
+#    Time: 2 ms  Iteration: 0  Instance: /tb_core_raw
+# 1
+# Break in Module tb_core_raw at tb/tb_core_raw.sv line 252
+run -all
+run -all
+# End time: 10:42:59 on Oct 07,2026, Elapsed time: 3:39:29
+# Errors: 0, Warnings: 0
