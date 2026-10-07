@@ -3,7 +3,7 @@
 This repository contains the RTL implementation, synthesis infrastructure, and simulation environment for an autonomous, low-area **SHA-256 Hardware Accelerator** targeting the **Intel Cyclone V SoC FPGA (DE10-Nano, `5CSEBA6U23I7`)**.
 
 The design features an Avalon-MM Slave interface with HPS interrupt support, hardware auto-padding, multi-block message chaining, and an integrated iterative round computation engine.
-![Designed Block Diagram](docs/Diagram%20blok.jpeg)
+![Designed Block Diagram](docs/Diagram%20Blok.jpeg)
 *Figure 1: Designed Block Diagram*
 
 ---
@@ -81,7 +81,7 @@ The automated build script [`quartus_sha256_soc/quartus/build.tcl`](quartus_sha2
    * Double-click **Tools** $\rightarrow$ **Netlist Viewers** $\rightarrow$ **RTL Viewer** to view the synthesized gate- and block-level hardware schematic.
 
 ![Quartus RTL Design](docs/Quartus%20RTL%20Design.jpeg)
-*Figure 1: Synthesized top-level RTL schematic showing core and bus controller interconnection.*
+*Figure 2: Synthesized top-level RTL schematic showing core and bus controller interconnection.*
 
 ---
 
@@ -91,12 +91,12 @@ Target Device: **Cyclone V 5CSEBA6U23I7**
 Toolchain: **Intel Quartus II 64-Bit Version 13.1.0 Web Edition**
 
 ![Analysis & Synthesis Resource Usage Summary](docs/Resource%20usage%20summary.jpeg)
-*Figure 2: Analysis & Synthesis resource usage summary in Intel Quartus II.*
+*Figure 3: Analysis & Synthesis resource usage summary in Intel Quartus II.*
 
 ### 3.1. Overall Resource Utilization
 
 ![Compilation Flow Summary Report](docs/Compilation%20report.jpeg)
-*Figure 3: Full compilation flow summary and Fitter resource report for Cyclone V.*
+*Figure 4: Full compilation flow summary and Fitter resource report for Cyclone V.*
 
 | Metric | Utilized | Total Available | Utilization (%) |
 | :--- | :---: | :---: | :---: |
