@@ -1,0 +1,11 @@
+# Quartus temporary files & directories
+**/db/
+**/incremental_db/
+**/hc_output/
+**/*.flock
+c5_pin_model_dump.txt
+
+# ModelSim / Questa temporary files
+**/transcript
+**/*.wlf
+**/work/

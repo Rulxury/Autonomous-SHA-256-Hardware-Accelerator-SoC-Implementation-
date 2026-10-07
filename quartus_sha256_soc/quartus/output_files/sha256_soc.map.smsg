@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at sha256_fsm.v(101): always construct contains both blocking and non-blocking assignments
+Info (10281): Verilog HDL Declaration information at sha256_fsm.v(32): object "load" differs only in case from object "LOAD" in the same scope

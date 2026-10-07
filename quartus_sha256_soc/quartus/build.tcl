@@ -4,6 +4,7 @@
 
 package require ::quartus::project
 package require ::quartus::flow
+catch { package require ::quartus::report }
 
 project_new sha256_soc -overwrite
 set_global_assignment -name FAMILY           "Cyclone V"
@@ -37,18 +38,27 @@ foreach f {
 # Timing constraints
 set_global_assignment -name SDC_FILE sha256_soc.sdc
 
-# Optimization settings
-set_global_assignment -name OPTIMIZATION_MODE "Balanced"
-set_global_assignment -name PHYSICAL_SYNTHESIS_EFFORT Standard
-set_global_assignment -name ROUTER_EFFORT_MULTIPLIER 1.0
+# Optimization settings (compatible with Quartus II 13.1 and Quartus Prime)
+catch { set_global_assignment -name OPTIMIZATION_MODE "Balanced" }
+catch { set_global_assignment -name PHYSICAL_SYNTHESIS_EFFORT Standard }
+catch { set_global_assignment -name ROUTER_EFFORT_MULTIPLIER 1.0 }
 
 # Compile
 execute_flow -compile
 
 # Report key metrics
 load_report
-set panel "Timing Analyzer||Multicorner Timing Analysis Summary"
-set fmax [get_report_panel_data -name $panel -col_index 1 -row_index 0]
+set fmax "N/A"
+catch {
+    set panel "Timing Analyzer||Multicorner Timing Analysis Summary"
+    set fmax [get_report_panel_data -name $panel -col_index 1 -row_index 0]
+}
+catch {
+    if {$fmax eq "N/A"} {
+        set panel "TimeQuest Timing Analyzer||Multicorner Timing Analysis Summary"
+        set fmax [get_report_panel_data -name $panel -col_index 1 -row_index 0]
+    }
+}
 post_message "Fmax: $fmax"
 
 project_close
