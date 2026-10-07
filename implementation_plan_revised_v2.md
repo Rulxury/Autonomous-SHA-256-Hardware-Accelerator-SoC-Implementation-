@@ -1,6 +1,6 @@
 # Autonomous SHA-256 Hardware Accelerator — Engineering Implementation Specification (v2 + Integrasi Baseline tt07-sha256)
 
-> **Target Platform:** Intel/Altera Cyclone V SoC — **DE10-Nano (`5CSEBA6U23I7`)** *(koreksi dari "DE1-Nano" pada v1; periksa ulang board yang benar-benar kamu pakai)*  
+> **Target Platform:** Intel/Altera Cyclone V SoC — **DE10-Nano (`5CSEBA6U23I7`)** 
 > **Baseline wajib:** `tt07-sha256` (`project.v`, modul `tt_um_xeniarose_sha256`, © 2024 xenia dragon, Apache-2.0). Proyek ini adalah **turunan (integrasi + modifikasi)** dari baseline tersebut, bukan desain dari nol: `mc.v` diturunkan dari `project.v` dan seluruh fitur v2 menggerakkan round engine baseline (§4.6, §12).  
 > **Toolchain:** Intel Quartus Prime Lite, Platform Designer, ModelSim/Questa-Intel FPGA Edition (atau Verilator ≥ 5 untuk testbench)  
 > **Target Fmax:** ≥ 100 MHz, single clock domain *(tercapai atau tidaknya ditentukan oleh Timing Analyzer; lihat §8.3 untuk fallback)*  
@@ -12,7 +12,7 @@
 
 ---
 
-## 0. Ringkasan Perubahan dari v1
+## 0. Ringkasan 
 
 | # | Masalah di v1 | Perbaikan di v2 | Bagian |
 |:-:|:---|:---|:-:|
