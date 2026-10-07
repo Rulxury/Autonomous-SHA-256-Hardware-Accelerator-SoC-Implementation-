@@ -1,7 +1,7 @@
-Running: xsim.dir/tb_unit_sha256_fsm_snap/xsimk.exe -runall -simmode gui -wdb tb_unit_sha256_fsm_snap.wdb -simrunnum 0 -socket 57811
+Running: xsim.dir/tb_unit_sha256_fsm_snap/xsimk.exe -runall -simmode gui -wdb tb_unit_sha256_fsm_snap.wdb -simrunnum 0 -socket 63516
 Design successfully loaded
-Design Loading Memory Usage: 10048 KB (Peak: 10048 KB)
-Design Loading CPU Usage: 0 ms
+Design Loading Memory Usage: 10092 KB (Peak: 10092 KB)
+Design Loading CPU Usage: 30 ms
 Simulation completed
-Simulation Memory Usage: 11868 KB (Peak: 11868 KB)
-Simulation CPU Usage: 30 ms
+Simulation Memory Usage: 11912 KB (Peak: 11912 KB)
+Simulation CPU Usage: 46 ms

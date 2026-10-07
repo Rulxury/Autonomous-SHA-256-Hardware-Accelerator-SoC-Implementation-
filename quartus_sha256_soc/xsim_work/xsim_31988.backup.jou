@@ -3,10 +3,10 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Wed Oct  7 15:18:56 2026
-# Process ID         : 21212
+# Start of session at: Wed Oct  7 17:02:49 2026
+# Process ID         : 31988
 # Current directory  : C:/PERURI/quartus_sha256_soc/xsim_work
-# Command line       : xsim.exe -mode tcl -source {xsim.dir/tb_unit_hash_adder_snap/xsim_script.tcl}
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/tb_unit_pad_fn_snap/xsim_script.tcl}
 # Log file           : C:/PERURI/quartus_sha256_soc/xsim_work/xsim.log
 # Journal file       : C:/PERURI/quartus_sha256_soc/xsim_work\xsim.jou
 # Running On         : F16
@@ -19,7 +19,7 @@
 # Host memory        : 16777 MB
 # Swap memory        : 8970 MB
 # Total Virtual      : 25748 MB
-# Available Virtual  : 2727 MB
+# Available Virtual  : 4587 MB
 #-----------------------------------------------------------
-source xsim.dir/tb_unit_hash_adder_snap/xsim_script.tcl
+source xsim.dir/tb_unit_pad_fn_snap/xsim_script.tcl
 run -all

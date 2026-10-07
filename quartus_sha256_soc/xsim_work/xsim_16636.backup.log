@@ -3,10 +3,10 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Wed Oct  7 15:19:08 2026
-# Process ID         : 2144
+# Start of session at: Wed Oct  7 17:02:40 2026
+# Process ID         : 16636
 # Current directory  : C:/PERURI/quartus_sha256_soc/xsim_work
-# Command line       : xsim.exe -mode tcl -source {xsim.dir/tb_unit_mc_snap/xsim_script.tcl}
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/tb_unit_hash_adder_snap/xsim_script.tcl}
 # Log file           : C:/PERURI/quartus_sha256_soc/xsim_work/xsim.log
 # Journal file       : C:/PERURI/quartus_sha256_soc/xsim_work\xsim.jou
 # Running On         : F16
@@ -19,28 +19,21 @@
 # Host memory        : 16777 MB
 # Swap memory        : 8970 MB
 # Total Virtual      : 25748 MB
-# Available Virtual  : 2709 MB
+# Available Virtual  : 4547 MB
 #-----------------------------------------------------------
-source xsim.dir/tb_unit_mc_snap/xsim_script.tcl
-# xsim {tb_unit_mc_snap} -autoloadwcfg -runall
+source xsim.dir/tb_unit_hash_adder_snap/xsim_script.tcl
+# xsim {tb_unit_hash_adder_snap} -autoloadwcfg -runall
 Time resolution is 1 ps
 run -all
 ==============================================
-tb_unit_mc: Test load + 1 round compress
+tb_unit_hash_adder: Test 8-lane modular adder
 ==============================================
---- T1: State setelah reset = 0 ---
-PASS T1: state_out = 0
---- T2: Load IV + W[0] + K[0] ---
-PASS T2: state_out = IV setelah load
---- T3: Round 0 compress ---
-  Referensi manual: A1=5d6aebcd E1=fa2a4622
-  DUT state_out:    A =5d6aebcd E =fa2a4622
-PASS ter rnd0: 5d6aebcd
-PASS ter rnd0: fa2a4622
-PASS ter rnd0: 6a09e667
-PASS ter rnd0: 510e527f
+PASS T1: H_out = state_mc + h_prev benar
+PASS T2: H_out = state_mc + h_prev benar
+PASS T3: H_out = state_mc + h_prev benar
+PASS T4: H_out = state_mc + h_prev benar
 
-tb_unit_mc PASS
-$finish called at time : 56 ns : File "C:/PERURI/quartus_sha256_soc/tb/tb_unit_mc.sv" Line 175
+tb_unit_hash_adder PASS
+$finish called at time : 8 ns : File "C:/PERURI/quartus_sha256_soc/tb/tb_unit_hash_adder.sv" Line 97
 exit
-INFO: [Common 17-206] Exiting xsim at Wed Oct  7 15:19:10 2026...
+INFO: [Common 17-206] Exiting xsim at Wed Oct  7 17:02:42 2026...

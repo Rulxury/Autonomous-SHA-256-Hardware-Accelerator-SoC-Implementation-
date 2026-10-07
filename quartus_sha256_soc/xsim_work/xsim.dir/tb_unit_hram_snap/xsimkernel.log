@@ -1,7 +1,7 @@
-Running: xsim.dir/tb_unit_hram_snap/xsimk.exe -runall -simmode gui -wdb tb_unit_hram_snap.wdb -simrunnum 0 -socket 57801
+Running: xsim.dir/tb_unit_hram_snap/xsimk.exe -runall -simmode gui -wdb tb_unit_hram_snap.wdb -simrunnum 0 -socket 50508
 Design successfully loaded
-Design Loading Memory Usage: 10052 KB (Peak: 10052 KB)
-Design Loading CPU Usage: 31 ms
+Design Loading Memory Usage: 10096 KB (Peak: 10096 KB)
+Design Loading CPU Usage: 77 ms
 Simulation completed
-Simulation Memory Usage: 11136 KB (Peak: 11136 KB)
-Simulation CPU Usage: 46 ms
+Simulation Memory Usage: 11176 KB (Peak: 11176 KB)
+Simulation CPU Usage: 93 ms
