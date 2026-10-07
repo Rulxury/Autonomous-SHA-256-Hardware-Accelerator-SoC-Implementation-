@@ -3,8 +3,8 @@
 This repository contains the RTL implementation, synthesis infrastructure, and simulation environment for an autonomous, low-area **SHA-256 Hardware Accelerator** targeting the **Intel Cyclone V SoC FPGA (DE10-Nano, `5CSEBA6U23I7`)**.
 
 The design features an Avalon-MM Slave interface with HPS interrupt support, hardware auto-padding, multi-block message chaining, and an integrated iterative round computation engine.
-![Designed Block Diagram](docs/Diagram%20Blok.jpeg)
-*Figure 1: Designed Block Diagram*
+![Top-Level Architecture Block Diagram](docs/lomba%20peruri-top%20level.drawio.png)
+*Figure 1: Top-Level Architecture Block Diagram*
 
 ---
 
