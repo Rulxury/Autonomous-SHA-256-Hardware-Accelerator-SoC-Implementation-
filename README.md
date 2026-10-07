@@ -22,6 +22,9 @@ The accelerator consists of a hierarchical modular design:
     * **`hash_adder.v`**: Modulo $2^{32}$ parallel adder computing $H_{i} = H_{i-1} + \text{Digest}$.
     * **`pad_fn.v`**: Combinational hardware auto-padding logic according to NIST FIPS 180-4.
 
+![Quartus RTL Design](docs/Quartus%20RTL%20Design.jpeg)
+*Figure 1: Synthesized top-level RTL schematic showing core and bus controller interconnection.*
+
 ---
 
 ## 2. Synthesis and Resource Utilization Tutorial
@@ -83,7 +86,13 @@ The automated build script [`quartus_sha256_soc/quartus/build.tcl`](quartus_sha2
 Target Device: **Cyclone V 5CSEBA6U23I7**  
 Toolchain: **Intel Quartus II 64-Bit Version 13.1.0 Web Edition**
 
+![Analysis & Synthesis Resource Usage Summary](docs/Resource%20usage%20summary.jpeg)
+*Figure 2: Analysis & Synthesis resource usage summary in Intel Quartus II.*
+
 ### 3.1. Overall Resource Utilization
+
+![Compilation Flow Summary Report](docs/Compilation%20report.jpeg)
+*Figure 3: Full compilation flow summary and Fitter resource report for Cyclone V.*
 
 | Metric | Utilized | Total Available | Utilization (%) |
 | :--- | :---: | :---: | :---: |
@@ -137,6 +146,9 @@ PERURI/
 
 ---
 
-## 5. License
+## 5. References
 
-This project is licensed under the Apache License, Version 2.0. See existing source headers for individual file attribution and copyright notices.
+* [ttsky-verilog-sha256-processor](https://github.com/dvirdc/ttsky-verilog-sha256-processor)
+* [secworks/sha256](https://github.com/secworks/sha256)
+* [tharunchitipolu/SHA-256-Verilog-HDL](https://github.com/tharunchitipolu/SHA-256-Verilog-HDL)
+* [rnz/verilog-sha256](https://github.com/rnz/verilog-sha256)
